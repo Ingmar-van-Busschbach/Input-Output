@@ -1,0 +1,11 @@
+{
+  "name": "PoseNetJavascript",
+  "version": "1.0.0",
+  "dependencies": {
+    "express": "^4.17.1",
+    "fs": "0.0.1-security"
+  },
+  "devDependencies": {
+    "socket.io": "^3.0.5"
+  }
+}

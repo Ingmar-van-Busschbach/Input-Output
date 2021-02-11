@@ -1,23 +1,31 @@
-
 let posenetOk = false;
 
 const screenWidth = screen.width;
 const screenHeight = screen.height;
 const canvas2 = document.getElementById('canvas2');
 canvas2.style.zIndex = 1;
-let ctx2 = canvas2.getContext('2d');
+let context = canvas2.getContext('2d');
 let pose;//debug global
 let showVideoStream = false; // show video on / off
 let videoStreamAlpha = 0.4; // opacity of video stream
 
-function setupContext(){
+let averageArrayX = [];
+let averageArrayY = [];
+
+function setupContext() {
     canvas2.width = screenWidth;
     canvas2.height = screenHeight;
-    ctx2.translate(screenWidth, 0); // flip screen horizontal
-    ctx2.scale(-1, 1); // flip screen horizontal
+    context.translate(screenWidth, 0); // flip screen horizontal
+    context.scale(-1, 1); // flip screen horizontal
 }
 
 async function start() {
+    for (let i = 0; i < 17; i++) {
+        averageArrayX[i] = new MovingAverageCalculator();
+        averageArrayY[i] = new MovingAverageCalculator();
+    }
+
+
     setupContext();
     //https://github.com/tensorflow/tfjs-models/tree/master/posenet
     const net = await posenet.load({
@@ -46,11 +54,16 @@ function detectPoseInRealTime(video, net) {
         pose = await net.estimateSinglePose(video, {
             //flipHorizontal: false
         });
-        showSkeleton(pose);
+
+        updateAverage(pose);
+        context.clearRect(0, 0, screenWidth, screenHeight);
+        drawKeypoints()
+
+
         socket.emit('updatePoseNet', pose, screenWidth, screenHeight);
-        console.log(pose)
         requestAnimationFrame(poseDetectionFrame);
     }
+
     poseDetectionFrame();
 }
 
@@ -85,58 +98,26 @@ async function setupCamera() {
     }
 }
 
+// A function to draw ellipses over the detected keypoints
+function drawKeypoints() {
+    for (let i = 0; i < 16; i++) {
+        let x = averageArrayX[i].lastMean;
+        let y = averageArrayY[i].lastMean;
 
-function showSkeleton(poseArray){
-    ctx2.clearRect(0, 0, screenWidth, screenHeight);
-    // show video stream
-    if(showVideoStream){
-        ctx2.globalAlpha = videoStreamAlpha; // opacity
-        ctx2.drawImage(video, 0, 0, screenWidth, screenHeight);
+        ellipse(x, y, 10);
     }
-
-    //left ear index 3 right ear index 4. left eye 1  right eye 2 nose 0
-    //full table: https://www.tensorflow.org/lite/models/pose_estimation/overview
-
-    if(poseArray.keypoints[0].score>0.8){// see the nose? pobability > 80%
-        posenetOk = true; // start controlling
-        // nose index 0, left eye index 1, right eye index 2  left ear index 3, right ear index 4.
-
-        // show nose, left eye & right eye
-        ellipse(poseArray.keypoints[0].position, 30, 'blue'); // coordinates nose, draw circle
-        ellipse(poseArray.keypoints[1].position, 20, 'green'); // coordinates leftEye, draw circle
-        ellipse(poseArray.keypoints[2].position, 20, 'red'); // coordinates rightEye, draw circle
-
-        drawTriangle(poseArray.keypoints); // communicate to second game
-    }
-    else {
-        posenetOk = false; // stop controlling
-    }
-
 }
 
-//draw a circle
-const ellipse = ( XY, radius, color) =>{
-    //XY = object   { x: value, y: value }
-    ctx2.fillStyle  =  color;
-    ctx2.beginPath();
-    ctx2.arc(XY.x, XY.y, radius, radius, 0, 2 * Math.PI);
-    ctx2.fill();
+function updateAverage(newPose) {
+    for (let i = 0; i < 17; i++) {
+        if (newPose.keypoints[i].score < 0.2) continue;
+        averageArrayX[i].update(newPose.keypoints[i].position.x);
+        averageArrayY[i].update(newPose.keypoints[i].position.y);
+
+        pose.keypoints[i].position.x = averageArrayX[i].mean;
+        pose.keypoints[i].position.y = averageArrayY[i].mean;
+    }
 }
 
-function drawTriangle(XY) {
-
-    //XY = object
-    ctx2.lineJoin = 'round';
-    ctx2.lineCap = 'round';
-    ctx2.lineWidth = 5;
-    ctx2.strokeStyle = '#ff00ff';
-    ctx2.beginPath();
-    ctx2.moveTo( XY[0].position.x, XY[0].position.y)
-    ctx2.lineTo( XY[1].position.x, XY[1].position.y )
-    ctx2.stroke();
-    ctx2.moveTo( XY[0].position.x, XY[0].position.y)
-    ctx2.lineTo( XY[2].position.x, XY[2].position.y )
-    ctx2.stroke();
-}
 
 start();

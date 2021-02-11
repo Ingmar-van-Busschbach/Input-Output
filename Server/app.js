@@ -26,7 +26,6 @@ io.on("connection", function (socket) {
         json["screenWidth"] = screenWidth;
         json["screenHeight"] = screenHeight;
 
-        console.log(json)
         fs.writeFile('public/json/poseNetData.json', json, function (err) {
             if (err) return console.log(err);
             console.log("Written to file");
@@ -44,3 +43,4 @@ io.on("connection", function (socket) {
         });
     });
 });
+

@@ -6,7 +6,7 @@ const canvas2 = document.getElementById('canvas2');
 canvas2.style.zIndex = 1;
 let context = canvas2.getContext('2d');
 let pose;//debug global
-let showVideoStream = false; // show video on / off
+let showVideoStream = true; // show video on / off
 let videoStreamAlpha = 0.4; // opacity of video stream
 
 let averageArrayX = [];
@@ -29,11 +29,10 @@ async function start() {
     setupContext();
     //https://github.com/tensorflow/tfjs-models/tree/master/posenet
     const net = await posenet.load({
-        architecture: 'MobileNetV1',
-        outputStride: 16,
-        //inputResolution: { width: 640, height: 480 },
-        multiplier: 0.5 // 0.75
-        //outputstride 32 lower resolution = higher speed
+        architecture: 'ResNet50',
+        outputStride: 32,
+        inputResolution: { width: 640, height: 360 },
+        multiplier: 1,
     });
 
     let video;
@@ -48,8 +47,11 @@ async function start() {
     detectPoseInRealTime(video, net);
 }
 
+let lastLoop = new Date();
 function detectPoseInRealTime(video, net) {
+
     async function poseDetectionFrame() {
+        var thisLoop = new Date();
         //pose = await net.estimateSinglePose(video, 0.5, false, 16);
         pose = await net.estimateSinglePose(video, {
             //flipHorizontal: false
@@ -57,10 +59,20 @@ function detectPoseInRealTime(video, net) {
 
         updateAverage(pose);
         context.clearRect(0, 0, screenWidth, screenHeight);
+        drawPoints(pose)
         drawKeypoints()
+        if(showVideoStream){
 
-
+            context.globalAlpha = videoStreamAlpha; // opacity
+            context.drawImage(video, 0, 0, screenWidth, screenHeight);
+        }
         socket.emit('updatePoseNet', pose, screenWidth, screenHeight);
+
+
+
+        let fps = 1000 / (thisLoop - lastLoop);
+        lastLoop = thisLoop;
+        console.log("FPS" + fps);
         requestAnimationFrame(poseDetectionFrame);
     }
 
@@ -110,7 +122,7 @@ function drawKeypoints() {
 
 function updateAverage(newPose) {
     for (let i = 0; i < 17; i++) {
-        if (newPose.keypoints[i].score < 0.2) continue;
+        if (newPose.keypoints[i].score < 0.4) continue;
         averageArrayX[i].update(newPose.keypoints[i].position.x);
         averageArrayY[i].update(newPose.keypoints[i].position.y);
 
@@ -118,6 +130,7 @@ function updateAverage(newPose) {
         pose.keypoints[i].position.y = averageArrayY[i].mean;
     }
 }
+
 
 
 start();

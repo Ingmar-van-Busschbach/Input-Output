@@ -1,20 +1,20 @@
-let posenetOk = false;
-
 const screenWidth = screen.width;
 const screenHeight = screen.height;
-const canvas2 = document.getElementById('canvas2');
-canvas2.style.zIndex = 1;
-let context = canvas2.getContext('2d');
+
+const canvas = document.getElementById('canvas2');
+canvas.style.zIndex = 1;
+
+let context = canvas.getContext('2d');
 let pose;//debug global
 let showVideoStream = true; // show video on / off
-let videoStreamAlpha = 0.4; // opacity of video stream
+let videoStreamAlpha = 0.1; // opacity of video stream
 
 let averageArrayX = [];
 let averageArrayY = [];
 
 function setupContext() {
-    canvas2.width = screenWidth;
-    canvas2.height = screenHeight;
+    canvas.width = screenWidth;
+    canvas.height = screenHeight;
     context.translate(screenWidth, 0); // flip screen horizontal
     context.scale(-1, 1); // flip screen horizontal
 }
@@ -27,11 +27,10 @@ async function start() {
 
 
     setupContext();
-    //https://github.com/tensorflow/tfjs-models/tree/master/posenet
     const net = await posenet.load({
         architecture: 'ResNet50',
-        outputStride: 32,
-        inputResolution: { width: 640, height: 360 },
+        outputStride: 16,
+        inputResolution: { width: 320, height: 180 },
         multiplier: 1,
     });
 
@@ -47,36 +46,33 @@ async function start() {
     detectPoseInRealTime(video, net);
 }
 
-let lastLoop = new Date();
 function detectPoseInRealTime(video, net) {
 
     async function poseDetectionFrame() {
-        var thisLoop = new Date();
-        //pose = await net.estimateSinglePose(video, 0.5, false, 16);
         pose = await net.estimateSinglePose(video, {
-            //flipHorizontal: false
+            flipHorizontal: false
         });
 
         updateAverage(pose);
-        context.clearRect(0, 0, screenWidth, screenHeight);
-        drawPoints(pose)
-        drawKeypoints()
-        if(showVideoStream){
 
+
+        context.clearRect(0, 0, screenWidth, screenHeight);
+        if(showVideoStream){
             context.globalAlpha = videoStreamAlpha; // opacity
             context.drawImage(video, 0, 0, screenWidth, screenHeight);
         }
+
+
+        drawPoints(pose);
+        drawSkeleton(pose);
+
         socket.emit('updatePoseNet', pose, screenWidth, screenHeight);
 
-
-
-        let fps = 1000 / (thisLoop - lastLoop);
-        lastLoop = thisLoop;
-        console.log("FPS" + fps);
+        updateGame();
         requestAnimationFrame(poseDetectionFrame);
     }
 
-    poseDetectionFrame();
+    poseDetectionFrame().catch(reason => console.log(reason));
 }
 
 async function loadVideo() {
@@ -110,19 +106,23 @@ async function setupCamera() {
     }
 }
 
-// A function to draw ellipses over the detected keypoints
-function drawKeypoints() {
-    for (let i = 0; i < 16; i++) {
-        let x = averageArrayX[i].lastMean;
-        let y = averageArrayY[i].lastMean;
-
-        ellipse(x, y, 10);
-    }
-}
-
 function updateAverage(newPose) {
     for (let i = 0; i < 17; i++) {
-        if (newPose.keypoints[i].score < 0.4) continue;
+        if (newPose.keypoints[i].score < 0.6) continue;
+        if (newPose.keypoints[i].score > 0.9) {
+            for (let j = 0; j < averageArrayX.length/2; j++) {
+                averageArrayX[i].update(newPose.keypoints[i].position.x);
+                averageArrayY[i].update(newPose.keypoints[i].position.y);
+            }
+        }
+        // if it's 100% sure i want it there no matter what
+        if (newPose.keypoints[i].score > 1) {
+            for (let j = 0; j < averageArrayX.length; j++) {
+                averageArrayX[i].update(newPose.keypoints[i].position.x);
+                averageArrayY[i].update(newPose.keypoints[i].position.y);
+            }
+        }
+
         averageArrayX[i].update(newPose.keypoints[i].position.x);
         averageArrayY[i].update(newPose.keypoints[i].position.y);
 
@@ -133,4 +133,4 @@ function updateAverage(newPose) {
 
 
 
-start();
+start().then(r => console.log(r));

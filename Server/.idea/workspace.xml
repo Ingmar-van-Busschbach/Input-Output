@@ -20,9 +20,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="23f58025-cfe4-4baf-9c4e-2ad71853b46c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../Content/StarterContent/Architecture/Floor_400x400.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/../Content/StarterContent/Architecture/Floor_400x400.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/ClientScripts/webGame.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/Libraries/pixi.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/PoseNetJavascript.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/PoseNetJavascript.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/ClientScripts/MovingAverageCalculator.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/ClientScripts/MovingAverageCalculator.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/ClientScripts/PoseNet.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/ClientScripts/PoseNet.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/ClientScripts/drawing.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/ClientScripts/drawing.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/json/poseNetData.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/json/poseNetData.json" afterDir="false" />
     </list>
@@ -53,6 +60,12 @@
     <property name="javascript.nodejs.core.library.configured.version" value="12.18.2" />
     <property name="javascript.nodejs.core.library.typings.version" value="12.19.13" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
@@ -76,7 +89,15 @@
       <workItem from="1610532797736" duration="1016000" />
       <workItem from="1611129786963" duration="1488000" />
       <workItem from="1611310558224" duration="21000" />
-      <workItem from="1614768193241" duration="151000" />
+      <workItem from="1614768193241" duration="2103000" />
+      <workItem from="1614776396303" duration="3000" />
+      <workItem from="1614849372281" duration="1030000" />
+      <workItem from="1614851223294" duration="567000" />
+      <workItem from="1614851814125" duration="6000" />
+      <workItem from="1614950700021" duration="1412000" />
+      <workItem from="1615052801274" duration="74000" />
+      <workItem from="1615292411710" duration="3540000" />
+      <workItem from="1615372547717" duration="278000" />
     </task>
     <servers />
   </component>
@@ -96,10 +117,10 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="729" y="322" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1610529661612">
+    <state x="729" y="322" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1615372619969">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="729" y="322" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1610529661612" />
+    <state x="729" y="322" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1615372619969" />
     <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1611310569772">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

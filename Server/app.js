@@ -28,7 +28,6 @@ io.on("connection", function (socket) {
 
         fs.writeFile('public/json/poseNetData.json', json, function (err) {
             if (err) return console.log(err);
-            console.log("Written to file");
         });
 
     });
@@ -39,7 +38,6 @@ io.on("connection", function (socket) {
         json.screenHeight = screenHeight;
         fs.writeFile('public/json/canvasWidthAndHeight.json', JSON.stringify(json), function (err) {
             if (err) return console.log(err);
-            console.log("Written to file");
         });
     });
 });

@@ -21,9 +21,7 @@
   <component name="ChangeListManager">
     <list default="true" id="23f58025-cfe4-4baf-9c4e-2ad71853b46c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/ClientScripts/PoseNet.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/ClientScripts/PoseNet.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/ClientScripts/webGame.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/ClientScripts/webGame.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/json/poseNetData.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/json/poseNetData.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,6 +92,7 @@
       <workItem from="1615373627893" duration="734000" />
       <workItem from="1615382012695" duration="55000" />
       <workItem from="1615548648645" duration="463000" />
+      <workItem from="1615553757611" duration="2096000" />
     </task>
     <servers />
   </component>

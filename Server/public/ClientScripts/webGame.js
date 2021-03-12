@@ -26,14 +26,14 @@ function updateGame() {
 
     for (let i = 0; i < circles.length; i++) {
         let value = circles[i];
-        // Check if hand is close enough
-        let a = value.x - pose.keypoints[9].position.x;
-        let b = value.y - pose.keypoints[9].position.y;
 
-        let c = Math.sqrt(a * a + b * b);
-        if (c < 50) {
-            circles.splice(i, 1);
-            addCircle();
+        if (getDistance(value.x, value.y, pose.keypoints[9].position.x, pose.keypoints[9].position.y) < 50) {
+            onCollision(i)
+            return;
+        }
+
+        if (getDistance(value.x, value.y, pose.keypoints[10].position.x, pose.keypoints[10].position.y) < 50) {
+            onCollision(i)
             return;
         }
 
@@ -47,6 +47,17 @@ function updateGame() {
         context.stroke();
         context.closePath();
     }
+}
+
+function onCollision(i) {
+    circles.splice(i, 1);
+    addCircle();
+}
+
+function getDistance(x1, y1, x2, y2) {
+    let a = x1 - x2;
+    let b = y1 - y2;
+    return Math.sqrt(a * a + b * b);
 }
 
 

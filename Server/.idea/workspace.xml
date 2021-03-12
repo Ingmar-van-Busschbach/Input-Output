@@ -20,17 +20,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="23f58025-cfe4-4baf-9c4e-2ad71853b46c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/public/ClientScripts/webGame.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/Libraries/pixi.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/PoseNetJavascript.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/PoseNetJavascript.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/ClientScripts/MovingAverageCalculator.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/ClientScripts/MovingAverageCalculator.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/ClientScripts/PoseNet.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/ClientScripts/PoseNet.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/ClientScripts/drawing.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/ClientScripts/drawing.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/ClientScripts/webGame.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/ClientScripts/webGame.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/json/poseNetData.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/json/poseNetData.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -98,6 +90,10 @@
       <workItem from="1615052801274" duration="74000" />
       <workItem from="1615292411710" duration="3540000" />
       <workItem from="1615372547717" duration="278000" />
+      <workItem from="1615373137913" duration="40000" />
+      <workItem from="1615373627893" duration="734000" />
+      <workItem from="1615382012695" duration="55000" />
+      <workItem from="1615548648645" duration="463000" />
     </task>
     <servers />
   </component>

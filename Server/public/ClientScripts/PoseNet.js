@@ -44,6 +44,7 @@ async function start() {
 
     socket.emit("setup", screenWidth, screenHeight);
     detectPoseInRealTime(video, net);
+    initGame();
 }
 
 function detectPoseInRealTime(video, net) {

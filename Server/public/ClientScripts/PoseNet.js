@@ -1,3 +1,10 @@
+<<<<<<< Updated upstream
+=======
+const screenWidth = window.innerWidth;
+const screenHeight = window.innerHeight;
+
+let animationFrame = null;
+>>>>>>> Stashed changes
 
 let posenetOk = false;
 
@@ -23,10 +30,18 @@ async function start() {
     const net = await posenet.load({
         architecture: 'MobileNetV1',
         outputStride: 16,
+<<<<<<< Updated upstream
         //inputResolution: { width: 640, height: 480 },
         multiplier: 0.5 // 0.75
         //outputstride 32 lower resolution = higher speed
+=======
+        inputResolution: { width: 257, height: 200 },
+        multiplier: 1,
+        detectionType: 'single',
+        minConfidence: 0.5,
+>>>>>>> Stashed changes
     });
+
 
     let video;
     try {
@@ -37,10 +52,16 @@ async function start() {
     }
 
     socket.emit("setup", screenWidth, screenHeight);
-    detectPoseInRealTime(video, net);
+    await detectPoseInRealTime(video, net);
+    if (animationFrame !== null) window.cancelAnimationFrame(animationFrame);
 }
 
+<<<<<<< Updated upstream
 function detectPoseInRealTime(video, net) {
+=======
+async function detectPoseInRealTime(video, net) {
+
+>>>>>>> Stashed changes
     async function poseDetectionFrame() {
         //pose = await net.estimateSinglePose(video, 0.5, false, 16);
         pose = await net.estimateSinglePose(video, {
@@ -48,8 +69,14 @@ function detectPoseInRealTime(video, net) {
         });
         showSkeleton(pose);
         socket.emit('updatePoseNet', pose, screenWidth, screenHeight);
+<<<<<<< Updated upstream
         console.log(pose)
         requestAnimationFrame(poseDetectionFrame);
+=======
+
+        updateGame();
+        animationFrame = requestAnimationFrame(poseDetectionFrame);
+>>>>>>> Stashed changes
     }
     poseDetectionFrame();
 }

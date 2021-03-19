@@ -4,7 +4,7 @@ function isJumpingCorrect() {
 
 
 function idleStateScore() {
-    
+    console.log("NOT IMPLEMENTED YET")
 }
 
 

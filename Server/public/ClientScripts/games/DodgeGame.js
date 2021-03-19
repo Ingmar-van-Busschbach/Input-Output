@@ -3,10 +3,8 @@ let dodgeColor = 0;
 
 function dodge() {
     if (Mathf.getRndInteger(0, 2) === 0) {
-        // Dodge right
         dodgeState = "right";
     } else {
-        // Dodge left
         dodgeState = "left";
     }
 
@@ -16,7 +14,6 @@ function dodge() {
         dodgeColor = Mathf.easeOutQuint(i) * 255;
         if (i >= 1) {
             clearInterval(interval);
-            dodgeState = null;
             dodgeColor = 0;
             dodgeDelayEnd();
         }
@@ -26,9 +23,25 @@ function dodge() {
 
 function dodgeDelayEnd() {
     console.log("checking if the player dodged correctly.")
-    let correct = false;
+    let correct = true;
 
     for (let i = 0; i < 17; i++) {
-        if (pose.keypoints[i].position.x)
+        if (pose.keypoints[i].score < 0.5) continue;
+        if (dodgeState === "right") {
+            if (!(pose.keypoints[i].position.x < window.innerWidth/2)) {
+                correct = false;
+            }
+        }
+
+
+        if (dodgeState === "left") {
+            if (!(pose.keypoints[i].position.x > window.innerWidth/2)) {
+                correct = false;
+            }
+        }
     }
+
+
+    dodgeState = null;
+    console.log("has dodged?" + correct)
 }

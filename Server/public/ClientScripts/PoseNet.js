@@ -1,7 +1,7 @@
 const screenWidth = screen.width;
 const screenHeight = screen.height;
 
-const canvas = document.getElementById('canvas2');
+const canvas = document.getElementById('canvas');
 canvas.style.zIndex = 1;
 
 let context = canvas.getContext('2d');
@@ -44,7 +44,6 @@ async function start() {
 
     socket.emit("setup", screenWidth, screenHeight);
     detectPoseInRealTime(video, net);
-    initGame();
 }
 
 function detectPoseInRealTime(video, net) {
@@ -67,7 +66,8 @@ function detectPoseInRealTime(video, net) {
         drawPoints(pose);
         drawSkeleton(pose);
 
-        updateGame();
+        socket.emit('updatePoseNet', pose, screenWidth, screenHeight);
+
         requestAnimationFrame(poseDetectionFrame);
     }
 

@@ -10,14 +10,14 @@ function dodge() {
 
     let i = 0;
     const interval = setInterval(function () {
-        i += 0.0392156862745098;
+        i += 0.05;
         dodgeColor = Mathf.easeOutQuint(i) * 255;
         if (i >= 1) {
             clearInterval(interval);
             dodgeColor = 0;
             dodgeDelayEnd();
         }
-    }, 196.07843137254903);
+    }, 100);
 }
 
 
@@ -44,4 +44,23 @@ function dodgeDelayEnd() {
 
     dodgeState = null;
     console.log("has dodged?" + correct)
+}
+
+
+function updateDodgeGame() {
+    if (dodgeState === "right") {
+        gameContext.beginPath();
+        let green = dodgeColor/255;
+        gameContext.fillStyle = `rgb(${dodgeColor}, ${green}, 0)`;
+        gameContext.fillRect(window.innerWidth/2, 0, window.innerWidth/2, window.innerHeight);
+        gameContext.closePath();
+    }
+
+    if (dodgeState === "left") {
+        gameContext.beginPath();
+        let green = dodgeColor/255;
+        gameContext.fillStyle = `rgb(${dodgeColor}, ${green}, 0)`;
+        gameContext.fillRect(0,0,window.innerWidth/2, window.innerHeight);
+        gameContext.closePath();
+    }
 }

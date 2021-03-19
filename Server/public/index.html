@@ -15,15 +15,14 @@
     <button id="startBtn">Start</button>
 </div>
 
-<canvas id="canvas2" style="display: none" class="absolute fullscreen"></canvas>  <!--      posenet canvas 2     -->
-<canvas id="canvas1" style="display: none" class="absolute fullscreen"></canvas>  <!--     game canvas 1    -->
+<canvas id="canvas" style="display: none" class="absolute fullscreen"></canvas>  <!--      posenet canvas 2     -->
 
 </body>
 
 <script src="/socket.io/socket.io.js"></script>
 
 <script>
-    var socket = io();
+    const socket = io();
 
 
 
@@ -31,11 +30,10 @@
 
 <script src="tensorflow/tensorflow_tfjs.js"></script>
 <script src="tensorflow/tensorflow_posenet.js"></script>
-<script src="ClientScripts/Mathf.js"></script>
-<script src="ClientScripts/drawing.js"></script>
-<script src="ClientScripts/MovingAverageCalculator.js"></script>
+<script src="ClientScripts/Libraries/Mathf.js"></script>
+<script src="ClientScripts/Libraries/drawing.js"></script>
+<script src="ClientScripts/Libraries/MovingAverageCalculator.js"></script>
 <script src="ClientScripts/games/DodgeGame.js"></script>
-<script src="ClientScripts/webGame.js"></script>
 <script src="ClientScripts/PoseNet.js"></script>
 <script src="ClientScripts/menu.js"></script>
 

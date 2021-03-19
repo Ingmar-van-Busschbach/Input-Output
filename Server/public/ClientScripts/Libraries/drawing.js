@@ -24,7 +24,9 @@ function drawPoints() {
         let x = averageArrayX[i].lastMean;
         let y = averageArrayY[i].lastMean;
 
-        ellipse(x, y, 10);
+        if (pose.keypoints[i].score > 0.4) {
+            ellipse(x, y, 10);
+        }
     }
 
 }

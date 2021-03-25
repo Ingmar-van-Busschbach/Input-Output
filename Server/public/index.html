@@ -16,25 +16,26 @@
 </div>
 
 <canvas id="canvas" style="display: none" class="absolute fullscreen"></canvas>  <!--      posenet canvas 2     -->
+<canvas id="dodgeCanvas" style="display: none" class="absolute fullscreen"></canvas>  <!--      posenet canvas 2     -->
+<canvas id="scoreCanvas" style="display: none" class="absolute fullscreen"></canvas>  <!--      posenet canvas 2     -->
 
 </body>
 
-<script src="/socket.io/socket.io.js"></script>
-
 <script>
-    const socket = io();
 
 
 
 </script>
 
-<script src="tensorflow/tensorflow_tfjs.js"></script>
-<script src="tensorflow/tensorflow_posenet.js"></script>
-<script src="ClientScripts/Libraries/Mathf.js"></script>
-<script src="ClientScripts/Libraries/drawing.js"></script>
-<script src="ClientScripts/Libraries/MovingAverageCalculator.js"></script>
-<script src="ClientScripts/games/DodgeGame.js"></script>
-<script src="ClientScripts/PoseNet.js"></script>
-<script src="ClientScripts/menu.js"></script>
+<script src="tensorflow/tensorflow_tfjs.js" defer></script>
+<script src="tensorflow/tensorflow_posenet.js" defer></script>
+<script src="ClientScripts/Libraries/Mathf.js" defer></script>
+<script src="ClientScripts/Libraries/drawing.js" defer></script>
+<script src="ClientScripts/Libraries/MovingAverageCalculator.js" defer></script>
+<script src="ClientScripts/Libraries/DisplayScore.js" defer></script>
+<script src="ClientScripts/games/DodgeGame.js" defer></script>
+<script src="ClientScripts/PoseNet.js" defer></script>
+<script src="ClientScripts/canvas.js" defer></script>
+<script src="ClientScripts/menu.js" defer></script>
 
 </html>

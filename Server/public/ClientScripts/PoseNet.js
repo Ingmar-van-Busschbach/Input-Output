@@ -1,6 +1,8 @@
 const screenWidth = screen.width;
 const screenHeight = screen.height;
 
+const laptop = true;
+
 const canvas = document.getElementById('canvas');
 canvas.style.zIndex = 1;
 
@@ -27,12 +29,22 @@ async function start() {
 
 
     setupContext();
-    const net = await posenet.load({
-        architecture: 'ResNet50',
-        outputStride: 16,
-        inputResolution: { width: 320, height: 180 },
-        multiplier: 1,
-    });
+    let net;
+    if (laptop) {
+        net = await posenet.load({
+            architecture: 'ResNet50',
+            outputStride: 16,
+            inputResolution: { width: 320, height: 180 },
+            multiplier: 1,
+        });
+    } else {
+        net = await posenet.load({
+            architecture: 'MobileNetV1',
+            outputStride: 16,
+            inputResolution: { width: 640, height: 480 },
+            multiplier: 0.75
+        });
+    }
 
     let video;
     try {
@@ -42,7 +54,7 @@ async function start() {
         return;
     }
 
-    socket.emit("setup", screenWidth, screenHeight);
+
     detectPoseInRealTime(video, net);
 }
 
@@ -60,13 +72,12 @@ function detectPoseInRealTime(video, net) {
         if(showVideoStream){
             context.globalAlpha = videoStreamAlpha; // opacity
             context.drawImage(video, 0, 0, screenWidth, screenHeight);
+            context.globalAlpha = 1;
         }
 
 
         drawPoints(pose);
         drawSkeleton(pose);
-
-        socket.emit('updatePoseNet', pose, screenWidth, screenHeight);
 
         requestAnimationFrame(poseDetectionFrame);
     }

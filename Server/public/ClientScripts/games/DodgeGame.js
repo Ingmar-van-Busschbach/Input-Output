@@ -1,66 +1,59 @@
 let dodgeState = null;
 let dodgeColor = 0;
 
-function dodge() {
+function dodge(dodgeTime) {
     if (Mathf.getRndInteger(0, 2) === 0) {
         dodgeState = "right";
     } else {
         dodgeState = "left";
     }
 
-    let i = 0;
-    const interval = setInterval(function () {
-        i += 0.05;
-        dodgeColor = Mathf.easeOutQuint(i) * 255;
-        if (i >= 1) {
-            clearInterval(interval);
-            dodgeColor = 0;
-            dodgeDelayEnd();
-        }
-    }, 100);
-}
-
-
-function dodgeDelayEnd() {
-    console.log("checking if the player dodged correctly.")
-    let correct = true;
-
-    for (let i = 0; i < 17; i++) {
-        if (pose.keypoints[i].score < 0.5) continue;
-        if (dodgeState === "right") {
-            if (!(pose.keypoints[i].position.x < window.innerWidth/2)) {
-                correct = false;
-            }
-        }
-
-
-        if (dodgeState === "left") {
-            if (!(pose.keypoints[i].position.x > window.innerWidth/2)) {
-                correct = false;
-            }
-        }
-    }
-
-
-    dodgeState = null;
-    console.log("has dodged?" + correct)
-}
-
-
-function updateDodgeGame() {
     if (dodgeState === "right") {
-        gameContext.beginPath();
-        let green = dodgeColor/255;
-        gameContext.fillStyle = `rgb(${dodgeColor}, ${green}, 0)`;
-        gameContext.fillRect(window.innerWidth/2, 0, window.innerWidth/2, window.innerHeight);
-        gameContext.closePath();
+        console.log("draw1")
+        secondContext.beginPath();
+        secondContext.fillStyle = `rgba(200, 0, 0, 0.5)`;
+        secondContext.fillRect(window.innerWidth / 2, 0, window.innerWidth / 2, window.innerHeight);
+        secondContext.closePath();
     }
 
     if (dodgeState === "left") {
-        gameContext.beginPath();
-        let green = dodgeColor/255;
-        gameContext.fillStyle = `rgb(${dodgeColor}, ${green}, 0)`;
-        gameContext.fillRect(0,0,window.innerWidth/2, window.innerHeight);
-        gameContext.closePath();
+        console.log("draw2")
+        secondContext.beginPath();
+        secondContext.fillStyle = `rgba(200, 0, 0, 0.5)`;
+        secondContext.fillRect(0, 0, window.innerWidth / 2, window.innerHeight);
+        secondContext.closePath();
     }
+
+
+    setTimeout(function () {
+            secondContext.clearRect(0, 0, window.innerWidth, window.innerHeight);
+
+            let hasDodged = true;
+
+            for (const value of pose.keypoints) {
+                if (value.score < 0.5) continue;
+
+                if (dodgeState === "right") {
+                    if (value.position.x < window.innerWidth/2) {
+                        hasDodged = false;
+                        console.log(value.position)
+                        console.log(value.part)
+                        break;
+                    }
+                } else {
+                    if (value.position.x > window.innerWidth/2) {
+                        console.log(value.position)
+                        console.log(value.part)
+                        hasDodged = false;
+                        break;
+                    }
+                }
+            }
+
+            if (hasDodged) {
+                drawScoreText("AWSOME!! you did a super dodge");
+            } else {
+                drawScoreText("better luck next time")
+            }
+        }, dodgeTime);
 }

@@ -51,9 +51,11 @@ function dodge(dodgeTime) {
             }
 
             if (hasDodged) {
-                drawScoreText("AWSOME!! you did a super dodge");
+                let dodgedMessages = ["Wat een dodge", "dat ging je veelste makkelijk af", "wouw, een natuurtalent", "dat deed je zo snel goed gedaan!", "AWSOME!! you did a super dodge"];
+                drawScoreText(dodgedMessages[Mathf.getRndInteger(0, dodgedMessages.length)]);
             } else {
-                drawScoreText("better luck next time")
+                let dodgedMessages = ["ohhh, zo close", "nope net niet", "bijna volgende keer heb je hem!", "ugh ik dacht echt dat je hem zou hebben.", "sneller!!! je was er bijna..."];
+                drawScoreText(dodgedMessages[Mathf.getRndInteger(0, dodgedMessages.length)]);
             }
         }, dodgeTime);
 }

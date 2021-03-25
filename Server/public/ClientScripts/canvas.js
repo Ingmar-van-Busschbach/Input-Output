@@ -11,4 +11,4 @@ scoreCanvas.style.zIndex = "2";
 scoreCanvas.width = window.innerWidth;
 scoreCanvas.height = window.innerHeight;
 
-scoreContext = secondCanvas.getContext("2d");
+scoreContext = scoreCanvas.getContext("2d");

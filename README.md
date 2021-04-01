@@ -1,5 +1,6 @@
 This is a project made to test the feasability of using AI posenet style programs in a similar fashion as the xbox 360 kinect, but without any hardware requirements outside of a simple camera.
 We tested this by making a game that tests the reaction speed and precision of the program by having the player react to things happening on their screen, or by having the player stand in certain poses.
+This program was intended to be used alongside a wide-angle camera and large-size display to create a "smart mirror" styled effect. However, it should run fine on a normal laptop display and webcam, if the player stays at a reasonable distance away from the screen.
 
 
 - If you are a non-developer user and want to try out this program, read USER-MANUAL: https://github.com/Ingmar-van-Busschbach/Input-Output/blob/develop/USER-MANUAL.md

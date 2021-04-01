@@ -1,4 +1,4 @@
-This prototype uses the "Tensorflow" and "PoseNet" API's to generate a list of 2D coordinates that can be used by the game. This happens through Camera input
+This prototype uses the "MobileNetV1" and "ResNet50" "PoseNet" API's to generate a list of 2D coordinates that can be used by the game. This happens through Camera input
 The camera needs to be set up facing away from the screen, much like a laptop webcam would be mounted compared to its screen. It does not matter whether it is mounted below or above the mirror, as long as it can reasonably capture the entire upper body of an user.
 We use a local host server, that listens to port 3000, to process the camera input and write to the ..\Server\public\json\poseNetData.json
 
@@ -8,15 +8,15 @@ Position: Vector2D which represents the location of that bone joint
 Score: float that represents how accurately Tensorflow was able to read that bone joint's location. Lower scores should either be blended towards, or filtered out, to prevent jitter
 
 The current prototype contains data for the following bone joints, with a left and right variant where applicable:
-Nose
-Eyes
-Ears
-Shoulders
-Elbows
-Wrists
-Hips
-Knees
-Ankles
+- Nose
+- Eyes
+- Ears
+- Shoulders
+- Elbows
+- Wrists
+- Hips
+- Knees
+- Ankles
 
 We only use the data from the hip up, as the legs are not relevant to this prototype's function
 This data is updated 10 times a second to keep performance cost low
